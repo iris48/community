@@ -1,7 +1,7 @@
 package com.iris.community;
 
 import com.iris.community.entity.Person;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

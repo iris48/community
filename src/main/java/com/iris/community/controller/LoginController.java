@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -101,7 +102,7 @@ public class LoginController implements CommunityConstant {
         //将验证码存入session
         //session.setAttribute("kaptcha",text);
 
-        //验证码的归属
+        //验证码的归属 把验证码的值放到了cookie中
         String kaptchaOwner = CommunityUtil.generateUUID();
         Cookie cookie = new Cookie("kaptchaOwner",kaptchaOwner);
         cookie.setMaxAge(60);
@@ -156,10 +157,12 @@ public class LoginController implements CommunityConstant {
             return "/site/login";
         }
     }
+
     @RequestMapping(path = "/logout",method = RequestMethod.GET)
     public String logout(@CookieValue("ticket")String ticket){
         userService.logout(ticket);
         //重定向默认是get请求
+        SecurityContextHolder.clearContext();
         return "redirect:/login";
 
     }

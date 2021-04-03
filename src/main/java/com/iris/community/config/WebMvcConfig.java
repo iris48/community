@@ -1,12 +1,11 @@
 package com.iris.community.config;
 
 import com.iris.community.annotation.LoginRequired;
-import com.iris.community.controller.interceptor.AlphaInterceptor;
-import com.iris.community.controller.interceptor.LoginRequiredInterceptor;
-import com.iris.community.controller.interceptor.LoginTicketIntercepter;
+import com.iris.community.controller.interceptor.*;
 import com.iris.community.util.HostHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -19,8 +18,14 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Autowired
     private LoginTicketIntercepter loginTicketIntercepter;
 
+//    @Autowired
+//    private LoginRequiredInterceptor loginRequiredInterceptor;
+
     @Autowired
-    private LoginRequiredInterceptor loginRequiredInterceptor;
+    private MessageInterceptor messageInterceptor;
+
+    @Autowired
+    private DataInterceptor dataInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -29,7 +34,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addPathPatterns("/register","/login");
         registry.addInterceptor(loginTicketIntercepter)
                 .excludePathPatterns("/**/*.css","/**/*.js","/**/*.png","/**/*.jpg","/**/*.jpeg");//所有目录下的文件都被排除
-        registry.addInterceptor(loginRequiredInterceptor)
+//        registry.addInterceptor(loginRequiredInterceptor)
+//                .excludePathPatterns("/**/*.css","/**/*.js","/**/*.png","/**/*.jpg","/**/*.jpeg");//所有目录下的文件都被排除
+
+        registry.addInterceptor(messageInterceptor)
+                .excludePathPatterns("/**/*.css","/**/*.js","/**/*.png","/**/*.jpg","/**/*.jpeg");//所有目录下的文件都被排除
+        registry.addInterceptor(dataInterceptor)
                 .excludePathPatterns("/**/*.css","/**/*.js","/**/*.png","/**/*.jpg","/**/*.jpeg");//所有目录下的文件都被排除
     }
 }
