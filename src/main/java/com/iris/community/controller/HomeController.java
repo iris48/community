@@ -45,7 +45,6 @@ public class HomeController implements CommunityConstant {
         List<DiscussPost> list = discussPostService.findDiscussPosts(0,page.getOffset(),page.getLimit(),orderMode);
         List<Map<String,Object>> discussPosts = new ArrayList<>();
         if(list != null){
-
             for(DiscussPost post : list){
                 Map<String,Object> map = new HashMap();
                 map.put("post",post);
@@ -61,16 +60,16 @@ public class HomeController implements CommunityConstant {
         return "/index";
     }
 
-    @RequestMapping(path = "/errors", method = RequestMethod.GET)
+    @RequestMapping(path = "/error", method = RequestMethod.GET)
     public String getErrorPage() {
 
-        return "/site/error/500";
+        return "/error/500";
     }
     // 拒绝访问时的提示页面
 
     @RequestMapping(path = "/denied", method = RequestMethod.GET)
     public String getDeniedPage() {
-        return "/site/error/404";
+        return "/error/404";
     }
 
 //    @RequestMapping(path="/indexs",method = RequestMethod.GET)

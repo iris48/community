@@ -9,6 +9,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.test.context.ContextConfiguration;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @SpringBootTest
 @ContextConfiguration(classes = CommunityApplication.class)
 class CommunityApplicationTests implements ApplicationContextAware {
@@ -44,6 +47,11 @@ class CommunityApplicationTests implements ApplicationContextAware {
 		//System.out.println(person);
 		boolean b = ioc.containsBean("helloService");
 		System.out.println(b);
+	}
+	@Test
+	public void testBeanConfig(){
+		SimpleDateFormat simpleDateFormat = applicationContext.getBean(SimpleDateFormat.class);
+		System.out.println(simpleDateFormat.format(new Date()));
 	}
 
 

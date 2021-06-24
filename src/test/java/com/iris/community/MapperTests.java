@@ -1,5 +1,6 @@
 package com.iris.community;
 
+import com.alibaba.fastjson.JSONObject;
 import com.iris.community.dao.DiscussPostMapper;
 import com.iris.community.dao.LoginTicketMapper;
 import com.iris.community.dao.UserMapper;
@@ -14,7 +15,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -96,6 +99,15 @@ public class MapperTests {
         loginTicketMapper.updateStatus("abc",1);
         loginTicket = loginTicketMapper.selectByTicket("abc");
         System.out.println(loginTicket);
+
+    }
+    @Test
+    public void test(){
+        Map<String, Object> map = new HashMap<>();
+        map.put("haha","123");
+        map.put("huohuo","456");
+        String s = JSONObject.toJSONString(map);
+        System.out.println(s);
 
     }
 }

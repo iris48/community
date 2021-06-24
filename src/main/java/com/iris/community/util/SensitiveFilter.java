@@ -87,7 +87,7 @@ public class SensitiveFilter {
 
         while (position < text.length()) {
             char c = text.charAt(position);
-            // 跳过符号
+            // 跳过符号 因为我们的map中不放入这类符号
             if (isSymbol(c)) {
                 // 若指针1处于根节点,将此符号计入结果,让指针2向下走一步
                 if (tempNode == rootNode) {
